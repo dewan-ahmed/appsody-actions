@@ -1,0 +1,17 @@
+- name: Docker Publish
+  uses: manusa/actions-publish-docker@v1.0.1
+  with:
+    # Name of the Docker image
+    name: appsody-actions-image
+    # Tag for the Docker image
+    tag: # optional
+    # Script body to compute tag name for the Docker image, has context as the main function argument
+    tag script: # optional
+    # Username for Docker registry
+    username: dewan2018
+    # Password for Docker registry
+    password: Hyatt1@@
+    # Registry URL
+    registry: dewan2018/appsody-actions:tagname
+    # Don't skip pull requests
+    include pull requests: # optional
