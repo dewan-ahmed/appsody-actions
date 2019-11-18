@@ -3,7 +3,7 @@ Continuous Integration using GitHub Actions for an Appsody Node.js/Express appli
 
 ## Taking care of the pre-requisites
 
-These steps are executed on linux(Ubuntu 18.04) but you can follow similar steps for Windows/Mac. If stuck, please reach out to author via [GitHub](https://github.com/dewan-ahmed).
+These steps are executed on linux(Ubuntu 18.04) but you can follow similar steps for Windows/Mac.
 
 ### Installing Java
 
@@ -45,7 +45,7 @@ Complete documentation is available at https://appsody.dev
 ...
 ```
 
-## Creating your Node.js Appsody project
+## Creating your Appsody project
 
 Create a project folder and follow the commands below to init an Appsody Node.js/Express project
 
@@ -54,4 +54,14 @@ mkdir appsody-actions
 cd appsody-actions
 appsody init nodejs-express
 ```
+Once the project initializes, create a repository on GitHub and push your project contents to that repository.
 
+## Creating a docker hub image repository
+
+1. Go to hub.docker.com and login/register.
+2. Create a new image repository by going to hub.docker.com/repository/create
+
+## Adding Continuous Integration to your repository using GitHub Actions
+
+1. Go to github.com and navigate to your repositoy
+2. Find *Actions* tab
