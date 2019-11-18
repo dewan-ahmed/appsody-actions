@@ -1,5 +1,5 @@
 # Appsody GitHub-Actions Tutorial
-Continuous Integration using GitHub Actions for an Appsody Node.js/Express application
+This tutorial walks through creating a continuous integration flow by using GitHub Actions for an Appsody Node.js/Express application. 
 
 ## Taking care of the pre-requisites
 
@@ -89,8 +89,9 @@ CMD [ "node", "server.js"
 
 ## Adding Continuous Integration to your repository using GitHub Actions
 
-1. Create a new file called *build.yml* in the root of your project folder /.github/workflows/build.yml
-2. Copy the following contents in that file (*Make sure to replace <dockerUsername/reponame> with your docker username and the newly created image registry you just created*)
+1. From your newly created github repository, go to Settings --> Secret and add two parameters - DOCKER_HUB and DOCKER_HUB_KEY. Use your dockerhub username for the first parameter and dockerhub password for the latter.
+2. Create a new file called *build.yml* in the root of your project folder /.github/workflows/build.yml
+3. Copy the following contents in that file (*Make sure to replace <dockerUsername/reponame> with your docker username and the newly created image registry you just created*)
 ```
 name: Appsody-Actions CI
 
@@ -118,3 +119,5 @@ jobs:
         docker push <dockerUsername/reponame>
         echo 'Done!'
 ```       
+
+That's it. Now you can go back to your project, make any change to any source file and push to master (for example, change line#4 on app.js to display *Hello from Appsody-Actions*). You'll be seeing live logs on your CI build and have the image pushed to your docker image registry after a successful build.
