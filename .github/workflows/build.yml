@@ -19,8 +19,8 @@ jobs:
         echo 'Docker Login...'
         docker login -u $DOCKER_HUB -p $DOCKER_HUB_KEY
         echo 'running build...'
-        docker build . -t dewan2018/appsody-actions:v1
+        docker build . -t dewan2018/appsody-actions
         echo 'Pushing image...'
-        docker push dewan2018/appsody-actions:v1
+        docker push dewan2018/appsody-actions
         echo 'Done!'
       
