@@ -56,12 +56,65 @@ appsody init nodejs-express
 ```
 Once the project initializes, create a repository on GitHub and push your project contents to that repository.
 
-## Creating a docker hub image repository
+## Creating a docker hub image registry
 
 1. Go to hub.docker.com and login/register.
-2. Create a new image repository by going to hub.docker.com/repository/create
+2. Create a new image registry by going to hub.docker.com/repository/create
+
+## Adding a Dockerfile in your project directory
+
+At the root of your project, add the following Dockerfile and commit to your git repository
+
+```
+FROM node:12
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 3000
+CMD [ "node", "server.js" 
+```
 
 ## Adding Continuous Integration to your repository using GitHub Actions
 
-1. Go to github.com and navigate to your repositoy
-2. Find *Actions* tab
+1. Create a new file called *build.yml* in the root of your project folder /.github/workflows/build.yml
+2. Copy the following contents in that file (*Make sure to replace <dockerUsername/reponame> with your docker username and the newly created image registry you just created*)
+```
+name: Appsody-Actions CI
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: build-push
+      env:
+        DOCKER_HUB: ${{ secrets.DOCKER_HUB }}
+        DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
+      run: |
+        echo 'Docker Login...'
+        docker login -u $DOCKER_HUB -p $DOCKER_HUB_KEY
+        echo 'running build...'
+        docker build . -t <dockerUsername/reponame>
+        echo 'Pushing image...'
+        docker push <dockerUsername/reponame>
+        echo 'Done!'
+```       
