@@ -23,4 +23,4 @@ jobs:
         wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
         sudo apt install -f ./appsody_0.5.0_amd64.deb
         echo 'Running Appsody build and pushing to docker registry...'
-        appsody build -t dewan2018/appsody-actions:0.1 --push-url https://index.docker.io/v1
+        appsody build --push-url dewan2018/appsody-actions
