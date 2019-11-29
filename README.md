@@ -1,5 +1,5 @@
 # Appsody GitHub-Actions Tutorial
-This tutorial walks through creating a continuous integration flow by using GitHub Actions for an Appsody Node.js/Express application. 
+Appsody provides everything you need to iteratively develop applications, ready for deployment to Kubernetes environments. This tutorial walks through creating a continuous integration flow by using GitHub Actions for an Appsody Node.js/Express application. 
 
 ## Taking care of the pre-requisites
 
@@ -61,38 +61,13 @@ Once the project initializes, create a repository on GitHub and push your projec
 1. Go to hub.docker.com and login/register.
 2. Create a new image registry by going to hub.docker.com/repository/create
 
-## Adding a Dockerfile in your project directory
-
-At the root of your project, add the following Dockerfile and commit to your git repository
-
-```
-FROM node:12
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
-COPY . .
-
-EXPOSE 3000
-CMD [ "node", "server.js" 
-```
-
 ## Adding Continuous Integration to your repository using GitHub Actions
 
 1. From your newly created github repository, go to Settings --> Secret and add two parameters - DOCKER_HUB and DOCKER_HUB_KEY. Use your dockerhub username for the first parameter and dockerhub password for the latter.
 2. Create a new file called *build.yml* in the root of your project folder /.github/workflows/build.yml
-3. Copy the following contents in that file (*Make sure to replace <dockerUsername/reponame> with your docker username and the newly created image registry you just created*)
+3. Copy the following contents in that file (*Make sure to replace the --push-url value with your docker username. The repo name will be the name of your Appsody project.*)
 ```
+
 name: Appsody-Actions CI
 
 on:
@@ -113,11 +88,11 @@ jobs:
       run: |
         echo 'Docker Login...'
         docker login -u $DOCKER_HUB -p $DOCKER_HUB_KEY
-        echo 'running build...'
-        docker build . -t <dockerUsername/reponame>
-        echo 'Pushing image...'
-        docker push <dockerUsername/reponame>
-        echo 'Done!'
+        echo 'Installing Appsody...'
+        wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
+        sudo apt install -f ./appsody_0.5.0_amd64.deb
+        echo 'Running Appsody build and pushing to docker registry...'
+        appsody build --push-url dewan2018
 ```       
 
 That's it. Now you can go back to your project, make any change to any source file and push to master (for example, change line#4 on app.js to display *Hello from Appsody-Actions*). You'll be seeing live logs on your CI build and have the image pushed to your docker image registry after a successful build.
