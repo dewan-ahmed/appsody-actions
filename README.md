@@ -31,8 +31,8 @@ Log-out and log back in for the above changes to reflect on your account.
 
 Get the latest version from [Appsody Installation Doc](https://appsody.dev/docs/getting-started/installation/) and update the following code/version, if required.
 ```
-wget https://github.com/appsody/appsody/releases/download/0.4.9/appsody_0.4.9_amd64.deb
-sudo apt install -f $PWD/appsody_0.4.9_amd64.deb
+wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
+sudo apt install -f ./appsody_0.5.0_amd64.deb
 ```
 Once the above steps are done, type in **appsody** on your terminal and hit enter. If you see something like the following, your installation was successful:
 ```
