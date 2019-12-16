@@ -9,7 +9,7 @@ The steps in this tutorial are executed on Linux (Ubuntu 18.04), but you can fol
 
 Get the latest version from [openJDK](https://jdk.java.net).
 
-During the writing of this tutorial, version 13.0.1 is the latest. Update the following code <!--EM: where?--> to the jdk version you're using.
+During the writing of this tutorial, version 13.0.1 is the latest. You can replace the jdk version in the following block of code with the version you're using.
 
 ```
 wget https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz
@@ -19,7 +19,8 @@ export PATH=${PATH}:${JAVA_HOME}/bin
 ```
 
 ### Install Docker
-<!--EM: is this just something the reader should add to their CLI?-->
+
+Execute the following lines of code on your terminal to install docker and have it run during system start.
 
 ```
 sudo curl -sSL https://get.docker.com/ | sh
@@ -53,7 +54,7 @@ Complete documentation is available at https://appsody.dev
 
 ## Create your Appsody project
 
-Create a project folder <!--EM: How?--> and follow the commands below to initiate an Appsody Node.js/Express project:
+Follow the commands below to create a project folder and initiate an Appsody Node.js/Express project:
 
 ```
 mkdir appsody-actions
@@ -61,7 +62,7 @@ cd appsody-actions
 appsody init nodejs-express
 ```
 
-Once the project initializes, create a repository on GitHub, and push your project contents to that repository. <!--EM: Is this pretty standard? Will people know how to do this or do we need to explain how to create the repo/ push the contents?-->
+Once the project initializes, create a repository on GitHub, and push your project contents to that repository. 
 
 ## Create a Docker hub image registry
 
