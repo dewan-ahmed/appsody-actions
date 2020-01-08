@@ -5,19 +5,6 @@ Appsody provides everything you need to iteratively develop applications, ready 
 
 The steps in this tutorial are executed on Linux (Ubuntu 18.04), but you can follow similar steps for Windows or macOS.
 
-### Install Java
-
-Get the latest version from [openJDK](https://jdk.java.net).
-
-During the writing of this tutorial, version 13.0.1 is the latest. You can replace the jdk version in the following block of code with the version you're using.
-
-```
-wget https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz
-tar xvf openjdk-13.0.1_linux-x64_bin.tar.gz
-export JAVA_HOME=$PWD/jdk-13.0.1/
-export PATH=${PATH}:${JAVA_HOME}/bin
-```
-
 ### Install Docker
 
 Execute the following lines of code on your terminal to install docker and have it run during system start.
@@ -71,9 +58,9 @@ Once the project initializes, create a repository on GitHub, and push your proje
 
 ## Add continuous integration to your repository using GitHub Actions
 
-1. From your newly created GitHub repository, go to **Settings > Secret** and add two parameters: `DOCKER_HUB` and `DOCKER_HUB_KEY`. Use your dockerhub username for the first parameter and dockerhub password for the latter.
+1. From your newly created GitHub repository, go to **Settings > Secret** and add two parameters: `DOCKER_HUB_USER` and `DOCKER_HUB_KEY`. Use your dockerhub username for the first parameter and dockerhub password for the latter.
 2. Create a new file called `build.yml` in the root of your project folder `/.github/workflows/build.yml`.
-3. Copy the following contents into that file. **Make sure to replace the `--push-url` value with your docker username. The repo name will be the name of your Appsody project.**
+3. Copy the following contents into that file. **The repo name will be the name of your Appsody project.**
 
 ```
 name: Appsody-Actions CI
@@ -91,16 +78,16 @@ jobs:
     - uses: actions/checkout@v1
     - name: build-push
       env:
-        DOCKER_HUB: ${{ secrets.DOCKER_HUB }}
+        DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
         DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
       run: |
         echo 'Docker Login...'
-        docker login -u $DOCKER_HUB -p $DOCKER_HUB_KEY
+        docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_KEY
         echo 'Installing Appsody...'
         wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
         sudo apt install -f ./appsody_0.5.0_amd64.deb
         echo 'Running Appsody build and pushing to docker registry...'
-        appsody build --push-url dewan2018
+        appsody build --tag appsody-actions:v1 --push-url $DOCKER_HUB_USER
 ```       
 
-That's it. Now you can go back to your project, make any change to any source file and push to master; for example, change line#4 on app.js to display *Hello from Appsody-Actions*. You will seelive logs on your CI build and have the image pushed to your Docker image registry after a successful build.
+That's it. Now you can go back to your project, make any change to any source file and push to master; for example, change line#4 on app.js to display *Hello from Appsody-Actions*. You will see live logs on your CI build and have the image pushed to your Docker image registry after a successful build.
