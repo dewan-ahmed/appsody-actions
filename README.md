@@ -20,11 +20,11 @@ Log out and log back in for the above changes to reflect on your account.
 
 ### Install Appsody
 
-Get the latest version from [Appsody Installation Doc](https://appsody.dev/docs/getting-started/installation/) and update the following code/version, if required.
+To get the latest Appsody version, follow [Appsody Installation Doc](https://appsody.dev/docs/getting-started/installation/) and update the following code/version as well as build.yml under "Add continuous integration to your repository using GitHub Actions" section, if required.
 
 ```
-wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
-sudo apt install -f ./appsody_0.5.0_amd64.deb
+wget https://github.com/appsody/appsody/releases/download/0.5.4/appsody_0.5.4_amd64.deb
+sudo apt install -f ./appsody_0.5.4_amd64.deb
 ```
 
 Once the above steps are done, type in **appsody** on your terminal and hit enter. If you see something like the following, your installation was successful:
@@ -84,8 +84,8 @@ jobs:
         echo 'Docker Login...'
         docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_KEY
         echo 'Installing Appsody...'
-        wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
-        sudo apt install -f ./appsody_0.5.0_amd64.deb
+        wget https://github.com/appsody/appsody/releases/download/0.5.4/appsody_0.5.4_amd64.deb
+        sudo apt install -f ./appsody_0.5.4_amd64.deb
         echo 'Running Appsody build and pushing to docker registry...'
         appsody build --tag appsody-actions:v1 --push-url $DOCKER_HUB_USER
 ```       
