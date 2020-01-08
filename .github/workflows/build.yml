@@ -16,6 +16,7 @@ jobs:
       env:
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
         DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
+        DOCKER_HUB_REPO: ${{ secrets.DOCKER_HUB_REPO }} 
       run: |
         echo 'Docker Login...'
         docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_KEY
