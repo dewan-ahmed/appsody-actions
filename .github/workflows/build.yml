@@ -18,7 +18,7 @@ jobs:
         DOCKER_HUB_KEY: ${{ secrets.DOCKER_HUB_KEY }}
       run: |
         echo 'Docker Login...'
-        docker login -u $DOCKER_HUB -p $DOCKER_HUB_KEY
+        docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_KEY
         echo 'Installing Appsody...'
         wget https://github.com/appsody/appsody/releases/download/0.5.0/appsody_0.5.0_amd64.deb
         sudo apt install -f ./appsody_0.5.0_amd64.deb
